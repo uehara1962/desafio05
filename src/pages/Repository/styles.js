@@ -44,6 +44,16 @@ export const Owner = styled.header`
 
 `;
 
+export const Select = styled.select`
+  margin-left: 10px;
+  border: 1px solid #eee;
+  /* border: 0; */
+  /* padding: 0 15px; */
+  border-radius: 4px; 
+  font-size: 16px;
+
+`
+
 export const IssueList = styled.ul`
   padding-top: 30px;
   margin-top: 30px;
@@ -103,4 +113,25 @@ export const IssueList = styled.ul`
     }
   }
 
+`
+
+export const ControlPage = styled.div`
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+`
+export const ButPrev = styled.button.attrs( props => ({
+  disabled: props.page === 1 ? true : false  ,
+}))`
+  border: none;
+  /* color: rgba(0,0,0,1); */
+  color: ${props => props.page === 1 ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,1)'};
+  
+`
+export const ButNext = styled.button`
+  border: none;
+  
 `

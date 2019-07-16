@@ -147,7 +147,7 @@ import api from '../../services/api'
 
 import Container from '../../components/Container'
 
-import { Form, SubmitButton, List} from './styles'
+import { Form, SubmitButton, List, Select} from './styles'
 
 
 export default class Main extends Component {
@@ -188,7 +188,7 @@ export default class Main extends Component {
   }
 
   handleSubmit = async e => {
-    const { newRepo, repositories } = this.state
+    const { newRepo, repositories, statusRepo } = this.state
     e.preventDefault()
 
     this.setState({ loading: true })
