@@ -155,6 +155,7 @@ export default class Main extends Component {
     newRepo: '',
     repositories: [],
     loading: false,
+    addError: false
   }  
 
   // Carregar os dados do localStorage
@@ -179,7 +180,11 @@ export default class Main extends Component {
 
 
   handleInputChange = e => {
-    this.setState({ newRepo: e.target.value })
+    this.setState(
+      { 
+        newRepo: e.target.value, 
+        addError: false,
+      })
   }
 
   handleSubmit = async e => {
@@ -189,6 +194,15 @@ export default class Main extends Component {
     this.setState({ loading: true })
     
     try{
+
+      const repositoriesExist = repositories.filter((value, index) => {
+        return value.name === newRepo
+      })
+
+      // console.log(repositories, repositoriesExist)
+
+      if(repositoriesExist) throw "repository already exists"
+
       const response = await api.get(`/repos/${newRepo}`)
       // console.log(response.data)
       const data = {
@@ -204,6 +218,11 @@ export default class Main extends Component {
 
     }catch(err){
       console.log('error:', err)
+      this.setState({
+        loading: false,
+        addError: true,
+      })
+
     }
 
 
@@ -213,7 +232,7 @@ export default class Main extends Component {
 
 
   render(){
-    const { newRepo, repositories, loading } = this.state
+    const { newRepo, repositories, loading, addError } = this.state
 
     return (
       <Container>
@@ -221,17 +240,23 @@ export default class Main extends Component {
           <FaGithubAlt />
           Repositorios
         </h1>
-        <Form onSubmit={this.handleSubmit}>
+        <Form 
+          onSubmit={this.handleSubmit}
+          addError={addError}
+        >
           <input 
             type="text"
             placeholder="Adicionar repositório"
             value={newRepo}
-            onChange= {this.handleInputChange}
+            onChange={this.handleInputChange}
           />
-          <SubmitButton loading={loading}>
-            { loading ? <FaSpinner color="#FFF" size={14} /> :
-              <FaPlus color="#FFF" size={14} />
-            }
+          <SubmitButton 
+            loading={loading}
+          >
+            { loading ? ( <FaSpinner color="#FFF" size={14} /> 
+              ) : ( 
+                <FaPlus color="#FFF" size={14} /> 
+            )}
           </SubmitButton>
         </Form>
         <List >
