@@ -122,16 +122,17 @@ export const ControlPage = styled.div`
   justify-content: space-between;
   align-items: center;
 
-`
-export const ButPrev = styled.button.attrs( props => ({
-  disabled: props.page === 1 ? true : false  ,
-}))`
-  border: none;
-  /* color: rgba(0,0,0,1); */
-  color: ${props => props.page === 1 ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,1)'};
-  
-`
-export const ButNext = styled.button`
-  border: none;
-  
-`
+  button {
+    transition: opacity 0.25s ease-out;
+    border-radius: 4px;
+    outline: 0;
+    border: 0;
+    padding: 8px;
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+`;
+

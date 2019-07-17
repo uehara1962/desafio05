@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
 import api from '../../services/api'
 
 import Container from '../../components/Container'
-import { Loading, Owner, IssueList, Select, ControlPage, ButPrev, ButNext } from './styles'
+import { Loading, Owner, IssueList, Select, ControlPage } from './styles'
 
 export default class Repository extends Component {
   static propTypes = {
@@ -160,9 +160,14 @@ export default class Repository extends Component {
           ))}
         </IssueList>
         <ControlPage>
-          <ButPrev page={page} type='button' onClick={this.subtract}>Anterior</ButPrev>
+          <button 
+            type="button" 
+            disabled={page < 2}
+            onClick={this.subtract}>
+            Anterior
+          </button>
           <span>Pagina {page}</span>
-          <ButNext type='button' onClick={this.add}>Próxima</ButNext>
+          <button type='button' onClick={this.add}>Próxima</button>
         </ControlPage>
 
       </Container> 
